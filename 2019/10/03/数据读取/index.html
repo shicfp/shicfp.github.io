@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据读取 | Terry Feng&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据获得一般而言，数据分析的第一步是需要获取数据，不同的数据拥有不同的来源，常见的有以下四种：  来自数据接口的官网数据：  一般通过API请求获取，比较典型的例如天气网站的数据等；    数据库的数据  需要对方授权才可以访问使用  使用数据爬虫获取  这是当下python最为火热的原因，但由于诸多反爬机制的存在，事实上也存在一些限制。常用的有两种方式：  自己编写代码  Requests: 抓">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据读取">
+<meta property="og:url" content="http://yoursite.com/2019/10/03/数据读取/index.html">
+<meta property="og:site_name" content="Terry Feng&#39;s Blog">
+<meta property="og:description" content="数据获得一般而言，数据分析的第一步是需要获取数据，不同的数据拥有不同的来源，常见的有以下四种：  来自数据接口的官网数据：  一般通过API请求获取，比较典型的例如天气网站的数据等；    数据库的数据  需要对方授权才可以访问使用  使用数据爬虫获取  这是当下python最为火热的原因，但由于诸多反爬机制的存在，事实上也存在一些限制。常用的有两种方式：  自己编写代码  Requests: 抓">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/03/uwHjpD.png">
+<meta property="og:updated_time" content="2019-10-03T06:54:20.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据读取">
+<meta name="twitter:description" content="数据获得一般而言，数据分析的第一步是需要获取数据，不同的数据拥有不同的来源，常见的有以下四种：  来自数据接口的官网数据：  一般通过API请求获取，比较典型的例如天气网站的数据等；    数据库的数据  需要对方授权才可以访问使用  使用数据爬虫获取  这是当下python最为火热的原因，但由于诸多反爬机制的存在，事实上也存在一些限制。常用的有两种方式：  自己编写代码  Requests: 抓">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/03/uwHjpD.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Terry Feng&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Terry Feng&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Hello, World.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据读取" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/03/数据读取/" class="article-date">
+  <time datetime="2019-10-03T06:21:51.000Z" itemprop="datePublished">2019-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据读取
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="数据获得"><a href="#数据获得" class="headerlink" title="数据获得"></a>数据获得</h2><p>一般而言，数据分析的第一步是需要<strong>获取数据</strong>，不同的数据拥有不同的来源，常见的有以下四种：</p>
+<ol>
+<li><p>来自数据接口的官网数据：</p>
+<p> 一般通过API请求获取，比较典型的例如天气网站的数据等；</p>
+<p> <img src="https://s2.ax1x.com/2019/10/03/uwHjpD.png" alt="常用数据源"></p>
+</li>
+<li><p>数据库的数据</p>
+<p> 需要对方授权才可以访问使用</p>
+</li>
+<li><p>使用数据爬虫获取</p>
+<p> 这是当下python最为火热的原因，但由于诸多反爬机制的存在，事实上也存在一些限制。常用的有两种方式：</p>
+<ul>
+<li><p>自己编写代码</p>
+<ul>
+<li>Requests: 抓取网页信息</li>
+<li>XPath: 通过XML路径语言解析信息</li>
+<li>Pandas：保存数据并写入XLS/MySQl中</li>
+</ul>
+</li>
+<li><p>使用工具软件</p>
+<ul>
+<li>火车采集器</li>
+<li>八爪鱼（支持付费云采集）</li>
+<li>集搜客（可视化效果强）</li>
+</ul>
+<p>参考教程： <a href="https://www.shiyanlou.com/search/?search=%25E7%2588%25AC%25E8%2599%25AB" target="_blank" rel="noopener">实验楼爬虫教程</a></p>
+</li>
+</ul>
+</li>
+<li><p>其他（日志采集等）</p>
+</li>
+</ol>
+<h1 id><a href="#" class="headerlink" title></a></h1><h2 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h2><p>常用文件的读取方式如下：</p>
+<p><strong>csv文件</strong></p>
+<p>用一段代码来表示如下：</p>
+<pre><code>with open(&apos;xxx.csv&apos;, r) as f: 
+    ....</code></pre><p><strong>xlsx文件</strong></p>
+<p>通常使用xlrd包来进行解析</p>
+<pre><code>file = xlrd.open_workbook(file)
+table = file.sheet)by_index(0)</code></pre><p>备注：以上文件最为推荐的打开方式为通过pandas来读取，好处有两点：</p>
+<ol>
+<li>代码简洁</li>
+<li>读取出来的数据即为DataFrame格式，方便进行数据清洗等后续工作</li>
+</ol>
+<p><strong>pandas支持的读取文件类型</strong></p>
+<pre><code>pd.read_csv
+pd.read_html
+pd.read_clipboard # 剪切板数据
+pd.read_excel
+pd.read_hdf
+pd.read_feather
+pd.read_msgpack
+pd.read_stata
+pd.read_sas
+pd.read_pickle</code></pre><p>使用时注意每个语句都有不同的参数。</p>
+<p>参考文档：<a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html" target="_blank" rel="noopener">官方文档</a></p>
+<p><strong>数据库文件</strong></p>
+<p>数据库文件的读取需要安装第三方库，例如读取MySQL文件时，需要安装MySQLdb</p>
+<p>参考文档：<a href="https://www.shiyanlou.com/courses/9" target="_blank" rel="noopener">实验楼教程</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/03/数据读取/" data-id="ck1acgw1c0002f0w0er6u7sns" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/03/如何利用git创建个人网站/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何利用git创建个人网站</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/10/03/数据读取/">数据读取</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/如何利用git创建个人网站/">如何利用git创建个人网站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/新的开始/">新的开始</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/03/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Terry Feng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
