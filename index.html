@@ -66,6 +66,171 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Udacity数据分析过程——案例研究1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/07/Udacity数据分析过程——案例研究1/" class="article-date">
+  <time datetime="2019-10-07T02:30:24.000Z" itemprop="datePublished">2019-10-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/07/Udacity数据分析过程——案例研究1/">Udacity数据分析过程——案例研究1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="案例背景"><a href="#案例背景" class="headerlink" title="案例背景"></a>案例背景</h1><p>当前存在两个葡萄酒的数据集，其一为红葡萄酒，其二为白葡萄酒，数据内容包括所有葡萄酒样品的化学特性以及综合质量评分。假如你是葡萄酒庄的老板，你会希望从这两个数据集中获取哪些信息呢？</p>
+<p><strong>数据来源</strong>： <a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality" target="_blank" rel="noopener">Wine Quality Data Set</a></p>
+<p><strong>数据说明</strong></p>
+<p>Attribute Information:<br>Input variables (based on physicochemical tests):<br>1 - fixed acidity 固定酸度<br>2 - volatile acidity  挥发性酸度<br>3 - citric acid 柠檬酸<br>4 - residual sugar 残糖<br>5 - chlorides 氯化物<br>6 - free sulfur dioxide 游离二氧化硫<br>7 - total sulfur dioxide 总二氧化硫<br>8 - density 密度<br>9 - pH PH值<br>10 - sulphates 硫酸盐<br>11 - alcohol 酒精度<br>Output variable (based on sensory data):<br>12 - quality (score between 0 and 10) 质量评分</p>
+<h1 id="分析思路"><a href="#分析思路" class="headerlink" title="分析思路"></a>分析思路</h1><ol>
+<li><p>提问：针对数据集和Pre-view信息进行有效提问</p>
+<ul>
+<li>哪种化学特性与最终的质量评分存在大关联性？</li>
+<li>红白葡萄酒之间存在明显的质量评分差距吗？</li>
+<li>红白葡萄酒在化学特性上差别大吗？</li>
+</ul>
+</li>
+<li><p>收集数据</p>
+<p> 读取数据，并初步判断数据是否存在问题（分隔符等）</p>
+</li>
+<li><p>评估数据</p>
+<p> 包括样本数、列数、具有缺少值的特性、重复行、平均值等。</p>
+</li>
+<li><p>数据整合：附加数据并把数据源进行整合</p>
+<p> 使用追加列将红白葡萄酒两个CSV文件整合到一起，并修正数据集中存在的特性记录不match情况。</p>
+</li>
+<li><p>可视化探索：使用matplotlib可视化探索数据</p>
+<p> 对数据列进行直方图、散点图分布统计，观察是否有明显的偏态和相关性。</p>
+</li>
+<li><p>得出结论：使用groupby或查询query得出结论</p>
+</li>
+</ol>
+<h1 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h1><h2 id="numpy-repeat"><a href="#numpy-repeat" class="headerlink" title="numpy.repeat"></a>numpy.repeat</h2><p>网址： <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.repeat.html" target="_blank" rel="noopener">https://docs.scipy.org/doc/numpy/reference/generated/numpy.repeat.html</a></p>
+<p>功能：重复某个值以构成一个ndarray：Repeat elements of an array.</p>
+<p>格式：numpy.repeat(a, repeats, aixs=None)</p>
+<p>参数：<br>    - a：array-like<br>    - repeats：int or array of ints；代表重复的次数<br>    - axis：指定轴</p>
+<p>返回：Ndarray</p>
+<h2 id="pd-DataFrame-append"><a href="#pd-DataFrame-append" class="headerlink" title="pd.DataFrame.append"></a>pd.DataFrame.append</h2><p>网址：<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.append.html" target="_blank" rel="noopener">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.append.html</a></p>
+<p>功能：将两个DataFrame合并为一个DataFrame</p>
+<p>格式：DataFrame.append(self, other, ignore_index=False, verify_integrity=False, sort=None)</p>
+<p>参数：</p>
+<pre><code>- other：需要append的数据，格式为df或series/字典对象
+- ignore_index：若设置为True，则不使用index标签
+- verify_integrity: 若设置为True，当创建重复index时raise ValueError
+- sort：若self和other的列标签不一致时，排序列标签</code></pre><p>返回：DataFrame</p>
+<h2 id="pd-DataFrame-merge-待进一步研究"><a href="#pd-DataFrame-merge-待进一步研究" class="headerlink" title="pd.DataFrame.merge(待进一步研究)"></a>pd.DataFrame.merge(待进一步研究)</h2><p>网址：<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html" target="_blank" rel="noopener">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html</a></p>
+<p>功能：将DF或Series进行合并</p>
+<p>格式: DataFrame.merge(self, right, how=’inner’, on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=(‘x’, ‘_y’), copy=True, indicator=False, validate=None)</p>
+<p>参数：<br>    - right：需要合并的对象<br>    - how：= left/right/outer/inner，合并的方式（类似SQL）<br>    - left:仅使用left df的key值<br>    - right：仅使用right df的key值<br>    - outer：使用合并值<br>    - inner：使用相交值<br>    - on： lable or list #列或者行的名称，必须在两个df中都有，默认交集<br>    - left_on/right/on</p>
+<p>返回:DataFrame</p>
+<h2 id="pd-to-csv"><a href="#pd-to-csv" class="headerlink" title="pd.to_csv"></a>pd.to_csv</h2><p>网址：<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html?highlight=csv#pandas.DataFrame.to_csv" target="_blank" rel="noopener">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html?highlight=csv#pandas.DataFrame.to_csv</a></p>
+<p>功能：将DataFrame保存为csv文件</p>
+<p>格式：DataFrame.to_csv(self, path_or_buf=None, sep=’, ‘, na_rep=’’, float_format=None, columns=None, header=True, index=True, index_label=None, mode=’w’, encoding=None, compression=’infer’, quoting=None, quotechar=’”‘, line_terminator=None, chunksize=None, date_format=None, doublequote=True, escapechar=None, decimal=’.’)</p>
+<p>参数：- </p>
+<p>返回：略</p>
+<h2 id="pd-DataFrame-rename"><a href="#pd-DataFrame-rename" class="headerlink" title="pd.DataFrame.rename"></a>pd.DataFrame.rename</h2><p>网址：<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html" target="_blank" rel="noopener">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html</a></p>
+<p>功能：更改列标签的值</p>
+<p>格式：DataFrame.rename(self, mapper=None, index=None, columns=None, axis=None, copy=True, inplace=False, level=None, errors=’ignore’)</p>
+<p>参数：<br>    - mapper：dict对象或函数，用mapper及axis来指定轴，或index和columns<br>    - index：dict对象或函数<br>    - columns：dict对象或函数<br>    - axis：int/str，默认index,可以指定0/1或者index/’columns‘<br>    - copy：alsocopy underlying data<br>    - inplace：设置True时，直接更改df的标签<br>    - level：以防index是多重时，用于指定rename的level<br>    - errors：</p>
+<p>返回：DataFrame（注意设置inplace的值）</p>
+<h2 id="pd-plotting-scatter-matrix"><a href="#pd-plotting-scatter-matrix" class="headerlink" title="pd.plotting.scatter_matrix"></a>pd.plotting.scatter_matrix</h2><p>网址：略</p>
+<p>功能：绘制所有元素的散点图</p>
+<p>格式：pandas.plotting.scatter_matrix(frame, alpha=0.5, figsize=None, ax=None, grid=False, diagonal=’hist’, marker=’.’, density_kwds=None, hist_kwds=None, range_padding=0.05, **kwds)</p>
+<p>参数：<br>    - frame：dataframe<br>    - alpha：透明度<br>    - figsize：a tuple (width, height) in inched<br>    - ax: Matplotlib axis object, optional<br>    - grid: 设置为True时会显示grid<br>    - diagnoal: hist/kde<br>    - marker: str, optional</p>
+<p>返回：散点图</p>
+<h2 id="pd-DataFrame-skew（aixs-0-判断偏态状态"><a href="#pd-DataFrame-skew（aixs-0-判断偏态状态" class="headerlink" title="pd.DataFrame.skew（aixs=0) 判断偏态状态"></a>pd.DataFrame.skew（aixs=0) 判断偏态状态</h2><h2 id="pd-DataFrame-corr-‘quality’-与quality列的相关系数计算"><a href="#pd-DataFrame-corr-‘quality’-与quality列的相关系数计算" class="headerlink" title="pd.DataFrame.corr[‘quality’] 与quality列的相关系数计算"></a>pd.DataFrame.corr[‘quality’] 与quality列的相关系数计算</h2><h2 id="pd-DataFrame-groupby"><a href="#pd-DataFrame-groupby" class="headerlink" title="pd.DataFrame.groupby"></a>pd.DataFrame.groupby</h2><p>网址：（略）</p>
+<p>功能：group DF or Series using a mapper or by a series of columns</p>
+<p>格式：DataFrame.groupby(self, by=None, axis=0, level=None, as_index=True, sort=True, group_keys=True, squeeze=False, observed=False, **kwargs)</p>
+<p>参数：<br>    - by: mapping/function/label or list of labels<br>    - axis: 0/‘index’ 或者 1/‘columns’, default 0<br>    - level<br>    - as_index： 默认为True，表示groupby后的index是否为筛选value<br>    - sort： 默认为True<br>    - group_keys: 默认为True<br>    - squeeze: 默认为True<br>    - observed: 默认为True，</p>
+<p>返回：DataFrameGroupby or SeriesGroupBy Object</p>
+<h2 id="pandas-cut"><a href="#pandas-cut" class="headerlink" title="pandas.cut()"></a>pandas.cut()</h2><p>网址：<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.cut.html" target="_blank" rel="noopener">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.cut.html</a></p>
+<p>功能：将数组切分为n段，每段长度为bin，并返回每个值所在的区间</p>
+<p>格式：pandas.cut(x, bins, right=True, labels=None, retbins=False, precision=3, include_lowest=False, duplicates=’raise’)</p>
+<p>参数：<br>    - x: array-like,必须为一维数组<br>    - bins: int,sequence of scalars or intervallndex<br>        - int: 1至len(x)之间的值，代表切分长度<br>        - sequence of scalars: 边界<br>    - right：默认为True，表示切分时包含右边界<br>    - labels：array or bool， optional 设置返回bin的标签值<br>    - retbins：默认为False<br>    - precision：int，default =3， 精度<br>    - include_lowest: 默认为False<br>    - duplicates：</p>
+<p>返回：Ndarray</p>
+<h2 id="pd-DataFrame-query"><a href="#pd-DataFrame-query" class="headerlink" title="pd.DataFrame.query()"></a>pd.DataFrame.query()</h2><p>网址：<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query" target="_blank" rel="noopener">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query</a></p>
+<p>功能： 选择出满足exp表达式的数据</p>
+<p>格式：DataFrame.query(self, expr, inplace=False, **kwargs)   </p>
+<p>参数：<br>    - expr：想要运作的表达式<br>    - inplace: copy<br>    - **kwargs</p>
+<p>返回：DataFrame resulting from the provided query expression</p>
+<hr>
+<h1 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h1><ol>
+<li><p>数据处理过程中会碰到多种意外，比如使用read_csv读取文件时发现分割符并不是逗号、将两个DataFrame合并时发现某一个Df列标签错误、使用pd.cut来将数据进行切断等，这些依赖于对Series、Pandas、String、List基础处理函数的认知和运用，需要加强巩固</p>
+</li>
+<li><p>时间有点紧迫了，需要在四周内完成3个project，学习并且及时总结回顾，才能记住这么多的函数。</p>
+</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/07/Udacity数据分析过程——案例研究1/" data-id="ck1ggr2uc0000w4w0v7b3xbax" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udacity-case-study/">udacity case-study</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Linux-QNX资源网站" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/04/Linux-QNX资源网站/" class="article-date">
+  <time datetime="2019-10-04T09:04:36.000Z" itemprop="datePublished">2019-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/04/Linux-QNX资源网站/">Linux &amp; QNX资源网站</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="QNX"><a href="#QNX" class="headerlink" title="QNX"></a>QNX</h2><ol>
+<li><a href="http://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.ide.userguide/topic/debugging.html" target="_blank" rel="noopener">blackberry QNX Debug</a></li>
+</ol>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><ol>
+<li><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">books about linux</a></li>
+<li><a href="https://www.tecmint.com/" target="_blank" rel="noopener">tecmint</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/04/Linux-QNX资源网站/" data-id="ck1ggr2ul0001w4w03i7lx5t2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-常用python网站整理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/04/常用python网站整理/" class="article-date">
@@ -150,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/04/常用python网站整理/" data-id="ck1bw9j5h00027cw02qri2gq4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/04/常用python网站整理/" data-id="ck1ggr2uw0008w4w05amgc03x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
@@ -179,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/04/wget的下载和使用/" data-id="ck1bw9j5f00017cw0gyrnzq5i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/04/wget的下载和使用/" data-id="ck1ggr2uq0003w4w0d93hzewd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -274,7 +439,7 @@ pd.read_pickle</code></pre><p>使用时注意每个语句都有不同的参数�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/数据读取/" data-id="ck1bw9j5o00067cw05zagavtz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/数据读取/" data-id="ck1ggr2uz000bw4w0jdh4r2ik" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
@@ -337,7 +502,7 @@ hexo d</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/如何利用git创建个人网站/" data-id="ck1bw9j5j00037cw0pqlw2wpn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/如何利用git创建个人网站/" data-id="ck1ggr2uu0005w4w0y3xiulx5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -376,7 +541,7 @@ hexo d</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/新的开始/" data-id="ck1bw9j5n00057cw087jz5km1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/新的开始/" data-id="ck1ggr2ux0009w4w0butpxztr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/记录/">记录</a></li></ul>
@@ -427,7 +592,7 @@ hexo d</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/03/hello-world/" data-id="ck1bw9j5900007cw06blvxfv5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/03/hello-world/" data-id="ck1ggr2us0004w4w0frlpbugd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,7 +615,7 @@ hexo d</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity-case-study/">udacity case-study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a></li></ul>
     </div>
   </div>
 
@@ -460,7 +625,7 @@ hexo d</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a>
+      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/udacity-case-study/" style="font-size: 10px;">udacity case-study</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a>
     </div>
   </div>
 
@@ -482,6 +647,14 @@ hexo d</code></pre>
       <ul>
         
           <li>
+            <a href="/2019/10/07/Udacity数据分析过程——案例研究1/">Udacity数据分析过程——案例研究1</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/04/Linux-QNX资源网站/">Linux &amp; QNX资源网站</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/04/常用python网站整理/">常用python网站整理</a>
           </li>
         
@@ -491,14 +664,6 @@ hexo d</code></pre>
         
           <li>
             <a href="/2019/10/03/数据读取/">数据读取</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/03/如何利用git创建个人网站/">如何利用git创建个人网站</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/03/新的开始/">新的开始</a>
           </li>
         
       </ul>
